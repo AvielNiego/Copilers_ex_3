@@ -1,0 +1,14 @@
+﻿  driver.c
+  lex.yy.c
+Input.lex(44): warning C4013: 'atoi' undefined; assuming extern returning int
+lex.yy.c(1347): warning C4996: 'fileno': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _fileno. See online help for details.
+          c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(723) : see declaration of 'fileno'
+lex.yy.c(1538): warning C4013: 'exit' undefined; assuming extern returning int
+lex.yy.c(1601): warning C4013: 'malloc' undefined; assuming extern returning int
+lex.yy.c(1619): warning C4013: 'realloc' undefined; assuming extern returning int
+lex.yy.c(1629): warning C4013: 'free' undefined; assuming extern returning int
+  util.c
+  errormsg.c
+  Generating Code...
+errormsg.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+  TopDownParser.vcxproj -> C:\Users\user\Dropbox\MTA\COMPILATION\2015-2016\Compilation\Compilation_For_Students\Compiler\Step_02_Top_Down_Parser\TopDownParser\Debug\TopDownParser.exe

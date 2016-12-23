@@ -1,0 +1,17 @@
+﻿Build started 12/06/2014 10:07:23.
+     1>Project "C:\Users\Oren Ish Shalom\Documents\Job\MTA\2014-2015\semester_01\Compilation\Compilation_For_Lecturer\FLEX\FLEX_04_for_Code_Generation\Flex\Flex.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\Flex.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         Flex.vcxproj -> C:\Users\Oren Ish Shalom\Documents\Job\MTA\2014-2015\semester_01\Compilation\Compilation_For_Lecturer\FLEX\FLEX_04_for_Code_Generation\Flex\Debug\Flex.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\Flex.unsuccessfulbuild".
+         Touching "Debug\Flex.lastbuildstate".
+     1>Done Building Project "C:\Users\Oren Ish Shalom\Documents\Job\MTA\2014-2015\semester_01\Compilation\Compilation_For_Lecturer\FLEX\FLEX_04_for_Code_Generation\Flex\Flex.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.13

@@ -1,0 +1,113 @@
+digraph
+{
+graph [ordering = "out"]
+v90 [label = "LET"];
+v90 -> v61;
+v61 [label = "Dec
+List"];
+v61 -> v14;
+v14 v61 -> v60;
+v60 [label = "Dec
+List"];
+v60 -> v26;
+v26 v60 -> v59;
+v59 [label = "Dec
+List"];
+v59 -> v37;
+v37 v59 -> v58;
+v58 [label = "Dec
+List"];
+v58 -> v43;
+v43 v43 [label = "Variable
+Declaration
+
+(Avi : Grandfather)"];
+v43 -> v42;
+v42 [label = "Allocate
+Record"];
+v58 -> v57;
+v57 [label = "Dec
+List"];
+v57 -> v49;
+v49 v49 [label = "Variable
+Declaration
+
+(Isaac : Father)"];
+v49 -> v48;
+v48 [label = "Allocate
+Record"];
+v57 -> v56;
+v56 [label = "Dec
+List"];
+v56 -> v55;
+v55 v55 [label = "Variable
+Declaration
+
+(Jacob : Son)"];
+v55 -> v54;
+v54 [label = "Allocate
+Record"];
+v90 -> v89;
+v89 [label = "SEQ"];
+v89 -> v88;
+v88 [label = "Exp
+List"];
+v88 -> v65;
+v65 [label = "ASSIGN"];
+v65 -> v63;
+v63 [label = "Field
+Var
+...->age"];
+v63 -> v62;
+v62 [label = "Simple
+Var(Avi)"];
+v65 -> v64;
+v64 [label = "INT(99)"];
+v88 -> v87;
+v87 [label = "Exp
+List"];
+v87 -> v68;
+v68 [label = "CALL
+(PrintInt)"];
+v87 -> v86;
+v86 [label = "Exp
+List"];
+v86 -> v72;
+v72 [label = "ASSIGN"];
+v72 -> v70;
+v70 [label = "Field
+Var
+...->age"];
+v70 -> v69;
+v69 [label = "Simple
+Var(Isaac)"];
+v72 -> v71;
+v71 [label = "INT(74)"];
+v86 -> v85;
+v85 [label = "Exp
+List"];
+v85 -> v75;
+v75 [label = "CALL
+(PrintInt)"];
+v85 -> v84;
+v84 [label = "Exp
+List"];
+v84 -> v79;
+v79 [label = "ASSIGN"];
+v79 -> v77;
+v77 [label = "Field
+Var
+...->age"];
+v77 -> v76;
+v76 [label = "Simple
+Var(Jacob)"];
+v79 -> v78;
+v78 [label = "INT(49)"];
+v84 -> v83;
+v83 [label = "Exp
+List"];
+v83 -> v82;
+v82 [label = "CALL
+(PrintInt)"];
+
+}

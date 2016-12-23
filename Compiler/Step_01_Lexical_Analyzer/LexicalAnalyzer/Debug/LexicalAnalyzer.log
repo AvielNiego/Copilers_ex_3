@@ -1,0 +1,22 @@
+﻿Build started 22/11/2016 12:20:55.
+     1>Project "C:\Users\Oren Ish Shalom\Dropbox\MTA\COMPILATION\2016-2017\Compilation\Compilation_For_Students\Compiler\Step_01_Lexical_Analyzer\LexicalAnalyzer\LexicalAnalyzer.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\LexicalAnalyzer.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\Flex\lex.yy.c
+         lex.yy.c
+     1>Input.lex(41): error C2065: 'ARROW' : undeclared identifier
+     1>Input.lex(42): error C2065: 'DOUBLE_ARROW' : undeclared identifier
+     1>Input.lex(45): error C2039: 'row' : is not a member of 'YYSTYPE'
+                 c:\users\oren ish shalom\dropbox\mta\compilation\2016-2017\compilation\compilation_for_students\compiler\bison\bison_01_for_first_exercise\tiger.tab.h(1) : see declaration of 'YYSTYPE'
+     1>Input.lex(45): warning C4013: 'atoi' undefined; assuming extern returning int
+     1>Input.lex(45): error C2065: 'ROW' : undeclared identifier
+     1>lex.yy.c(1553): warning C4013: 'exit' undefined; assuming extern returning int
+     1>lex.yy.c(1616): warning C4013: 'malloc' undefined; assuming extern returning int
+     1>lex.yy.c(1634): warning C4013: 'realloc' undefined; assuming extern returning int
+     1>lex.yy.c(1644): warning C4013: 'free' undefined; assuming extern returning int
+     1>Done Building Project "C:\Users\Oren Ish Shalom\Dropbox\MTA\COMPILATION\2016-2017\Compilation\Compilation_For_Students\Compiler\Step_01_Lexical_Analyzer\LexicalAnalyzer\LexicalAnalyzer.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.15

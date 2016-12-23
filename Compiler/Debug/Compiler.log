@@ -1,0 +1,7 @@
+﻿  semant.c
+c:\develop\projects\compailers\compiler\compiler\source_files\semant.c(256): warning C4101: 'type': unreferenced local variable
+c:\develop\projects\compailers\compiler\compiler\source_files\semant.c(710): warning C4101: 'varName': unreferenced local variable
+c:\develop\projects\compailers\compiler\compiler\source_files\semant.c(753): warning C4715: 'SEM_transVarExp': not all control paths return a value
+c:\develop\projects\compailers\compiler\compiler\source_files\semant.c(1114): warning C4715: 'SEM_transExp': not all control paths return a value
+tiger.tab.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+  Compiler.vcxproj -> C:\Develop\Projects\Compailers\Compiler\Compiler\Debug\Compiler.exe

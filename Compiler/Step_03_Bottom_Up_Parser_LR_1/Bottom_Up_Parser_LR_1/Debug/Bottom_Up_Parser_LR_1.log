@@ -1,0 +1,43 @@
+﻿Build started 22/11/2016 21:59:36.
+     1>Project "C:\Users\Oren Ish Shalom\Dropbox\MTA\COMPILATION\2016-2017\Compilation\Compilation_For_Students\Compiler\Step_03_Bottom_Up_Parser_LR_1\Bottom_Up_Parser_LR_1\Bottom_Up_Parser_LR_1.vcxproj" on node 2 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\Bottom_Up_Parser_LR_1.lastbuildstate".
+       InitializeBuildStatus:
+         Touching "Debug\Bottom_Up_Parser_LR_1.unsuccessfulbuild".
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\SOURCE_FILES\errormsg.c ..\..\SOURCE_FILES\util.c ..\..\Step_01_Lexical_Analyzer\Flex\lex.yy.c driver.c Parser.c Stack.c Table.c
+         Table.c
+         Stack.c
+         Parser.c
+         driver.c
+         lex.yy.c
+     1>Input.lex(43): warning C4013: 'atoi' undefined; assuming extern returning int
+     1>lex.yy.c(1338): warning C4996: 'fileno': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _fileno. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(723) : see declaration of 'fileno'
+     1>lex.yy.c(1529): warning C4013: 'exit' undefined; assuming extern returning int
+     1>lex.yy.c(1592): warning C4013: 'malloc' undefined; assuming extern returning int
+     1>lex.yy.c(1610): warning C4013: 'realloc' undefined; assuming extern returning int
+     1>lex.yy.c(1620): warning C4013: 'free' undefined; assuming extern returning int
+         util.c
+         errormsg.c
+         Generating Code...
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Oren Ish Shalom\Dropbox\MTA\COMPILATION\2016-2017\Compilation\Compilation_For_Students\Compiler\Step_03_Bottom_Up_Parser_LR_1\Bottom_Up_Parser_LR_1\Debug\Bottom_Up_Parser_LR_1.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Bottom_Up_Parser_LR_1.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Oren Ish Shalom\Dropbox\MTA\COMPILATION\2016-2017\Compilation\Compilation_For_Students\Compiler\Step_03_Bottom_Up_Parser_LR_1\Bottom_Up_Parser_LR_1\Debug\Bottom_Up_Parser_LR_1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Oren Ish Shalom\Dropbox\MTA\COMPILATION\2016-2017\Compilation\Compilation_For_Students\Compiler\Step_03_Bottom_Up_Parser_LR_1\Bottom_Up_Parser_LR_1\Debug\Bottom_Up_Parser_LR_1.lib" /MACHINE:X86 Debug\errormsg.obj
+         Debug\util.obj
+         Debug\lex.yy.obj
+         Debug\driver.obj
+         Debug\Parser.obj
+         Debug\Stack.obj
+         Debug\Table.obj
+     1>errormsg.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+         Bottom_Up_Parser_LR_1.vcxproj -> C:\Users\Oren Ish Shalom\Dropbox\MTA\COMPILATION\2016-2017\Compilation\Compilation_For_Students\Compiler\Step_03_Bottom_Up_Parser_LR_1\Bottom_Up_Parser_LR_1\Debug\Bottom_Up_Parser_LR_1.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Oren Ish Shalom\Dropbox\MTA\COMPILATION\2016-2017\Compilation\Compilation_For_Students\Compiler\Step_03_Bottom_Up_Parser_LR_1\Bottom_Up_Parser_LR_1\Debug\Bottom_Up_Parser_LR_1.exe;#1" /manifest Debug\Bottom_Up_Parser_LR_1.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\Bottom_Up_Parser_LR_1.unsuccessfulbuild".
+         Touching "Debug\Bottom_Up_Parser_LR_1.lastbuildstate".
+     1>Done Building Project "C:\Users\Oren Ish Shalom\Dropbox\MTA\COMPILATION\2016-2017\Compilation\Compilation_For_Students\Compiler\Step_03_Bottom_Up_Parser_LR_1\Bottom_Up_Parser_LR_1\Bottom_Up_Parser_LR_1.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.59
