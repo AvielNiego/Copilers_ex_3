@@ -88,7 +88,7 @@ typedef enum
 	A_letExp,
 	A_arrayExp,
 	A_allocateArrayExp,
-	A_allocateRecordExp,
+	A_allocateRecordExp
 }
 expType;
 
@@ -125,7 +125,7 @@ struct A_exp_
 	} u;
 };
 
-typedef enum {A_functionDec, A_varDec, A_typeDec, A_classDec} declarationType;
+typedef enum {A_functionDec, A_varDec, A_typeDec, A_classDec, A_classBody} declarationType;
 
 typedef enum {A_nameTy, A_recordTy, A_arrayTy, A_classType} Ty_Type;
 
@@ -147,6 +147,7 @@ typedef struct
 typedef struct {S_symbol type_name; A_ty_ ty;} A_typedec_;
 typedef struct {S_symbol var_name; S_symbol type_name; A_exp init;} A_vardec_;
 typedef struct {A_pos pos;S_symbol name; A_fieldList params; S_symbol result; A_exp body;} A_fundec_;
+typedef struct { A_pos pos; A_fieldList members; A_funcList methods; } A_classbody_;
 typedef struct { A_pos pos; S_symbol name; S_symbol upperClass; A_fieldList members; A_funcList methods; } A_classdec_;
 
 /***************/
@@ -171,6 +172,8 @@ struct A_dec_
 		A_typedec_ type_dec;
 
 		A_classdec_ class_dec;
+
+		A_classbody_ class_body;
 	} u;
 };
 
@@ -247,14 +250,14 @@ A_exp A_ArrayExp(A_pos pos, S_symbol typ, A_exp size, A_exp init);
 A_exp A_AllocateArrayExp(A_pos pos, S_symbol typ, int arraySize, int initializedValue);
 A_exp A_AllocateRecordExp(A_pos pos, S_symbol typ, A_expList fields);
 A_dec A_FunDec(A_pos pos, S_symbol name, A_fieldList params, S_symbol result, A_exp body);
-A_dec A_ClassDec(A_pos pos, S_symbol name, S_symbol upperClass, A_fieldList members, A_funcList methods);
+A_dec A_ClassDec(A_pos pos, S_symbol name, S_symbol upperClass, A_dec body);
 A_dec A_VarDec(A_pos pos, S_symbol var, S_symbol typ, A_exp init);
 A_dec A_NameTypeDec(A_pos pos, S_symbol declared_type_name, S_symbol existing_type_name);
 A_dec A_ArrayTypeDec(A_pos pos, S_symbol declared_array_type_name, S_symbol the_type_of_each_entry_in_the_array);
 A_dec A_RecordTypeDec(A_pos pos, S_symbol declared_record_type_name, A_fieldList fieldList);
 A_field A_Field(A_pos pos, S_symbol name, S_symbol typ);
 A_fieldList A_FieldList(A_field head, A_fieldList tail);
-A_funcList A_FuncList(A_fundec head, A_funcList tail);
+A_funcList A_FuncList(A_dec head, A_funcList tail);
 A_expList A_ExpList(A_exp head, A_expList tail);
 A_decList A_DecList(A_dec head, A_decList tail);
 

@@ -24,6 +24,10 @@
 /* FUNCTIONS DECLARATIONS */
 /**************************/
 Ty_ty SEM_transExp(S_table venv, S_table tenv, A_exp exp);
+Ty_funcList SEM_PrepareFunctionTypeList(S_table venv, S_table tenv, A_dec dec)
+{
+	return NULL;
+}
 
 void SEM_transVarDecInit(S_table venv, S_table tenv, A_dec dec)
 {
@@ -231,7 +235,7 @@ void SEM_transArrayTypeDec(S_table venv, S_table tenv, A_dec dec)
 	/******************************/
 	/* [2] Enter new type to tenv */
 	/******************************/
-	S_enter(tenv, type_name, Ty_Array((Ty_ty)S_look(tenv, array_of_what)));
+S_enter(tenv, type_name, Ty_Array((Ty_ty)S_look(tenv, array_of_what)));
 }
 
 Ty_fieldList PrepareFieldsTypeList(S_table tenv, A_fieldList fields)
@@ -250,6 +254,131 @@ Ty_fieldList PrepareFieldsTypeList(S_table tenv, A_fieldList fields)
 
 	return Ty_FieldList(Ty_Field(field_name, field_type), PrepareFieldsTypeList(tenv, fields->tail));
 }
+
+void SEM_tranRecordMemberAndFunction(S_table venv, S_table tenv, A_dec dec)
+{
+	int i;
+	Ty_ty type;
+	Ty_ty upper_type = NULL;
+	Ty_funcList funcList = NULL;
+	S_table temp_env;
+	S_symbol field_name = NULL;
+	A_fieldList fields = NULL;
+	S_symbol field_type_name = NULL;
+	Ty_fieldList fieldTypePtr = NULL;
+	Ty_fieldList fieldsTypesList = NULL;
+	S_symbol type_name = dec->u.class_dec.name;
+	A_fieldList beginning_of_record = dec->u.class_dec.members;
+	Ty_fieldList beginning_of_UpperCass = dec->u.class_dec.members;
+	A_fieldList new_fieldList = dec->u.class_dec.members;
+	/*************************************************************************************/
+	/* [0] for recursive definitions, we enter the record name to declare its existance  */
+	/*     however, its field list is only a dummy place holder. this is why we open a   */
+	/*     scope for this record, process it, and once we are ready, we close the scope, */
+	/*     and enter it to the tenv                                                      */
+	/*************************************************************************************/
+	S_beginScope(tenv);
+	S_enter(tenv, type_name, Ty_DummyType());
+
+	/**************************************************************************/
+	/* [1] We have to make sure there are no two fields with the same name.   */
+	/*     for that, we open a new environment, and make sure each field name */
+	/*     wasn't previously defined in this record                           */
+	/**************************************************************************/
+	temp_env = E_base_tenv();
+	S_beginScope(temp_env);
+
+	/*********************************************/
+	/* [2] for each field check two things:      */
+	/*                                           */
+	/*     [a] That its type exists, and         */
+	/*     [b] No two fields with the same name  */
+	/*                                           */
+	/*********************************************/
+
+	for (fields = beginning_of_record; fields != NULL; fields = fields->tail)
+	{
+		field_name = fields->head->field_name;
+		field_type_name = fields->head->field_type_name;
+
+		/***********************************/
+		/* [2a] check that its type exists */
+		/***********************************/
+		if (S_look(tenv, field_type_name) == NULL)
+		{
+			EM_error(
+				dec->pos,
+				"type %s is not defined in this scope",
+				S_name(field_type_name));
+		}
+		/***************************************************************/
+		/* [2b] check that there are no two fields with the same name */
+		/***************************************************************/
+		if (S_look(temp_env, field_name) != NULL)
+		{
+			EM_error(
+				dec->pos,
+				"variable named %s is already defined in type %s",
+				S_name(field_name), S_name(type_name));
+		}
+		else {
+			S_enter(temp_env, field_name, field_type_name);
+		}
+	}
+	/******************************/
+	/* [3] SOMETHING HAPPENS HERE */
+	/******************************/
+	
+	/*******************************/
+	/* [4] Prepare field type list */
+	/*******************************/
+	fieldsTypesList = PrepareFieldsTypeList(tenv, new_fieldList);
+
+	/******************************/
+	/* [5] SOMETHING HAPPENS HERE */
+	/******************************/	
+	if (dec->u.class_dec.methods != NULL)
+	{
+		funcList = SEM_PrepareFunctionTypeList(venv, tenv, dec);
+	}
+	if (dec->u.class_dec.upperClass != NULL)
+	{
+		upper_type = S_look(tenv, dec->u.class_dec.upperClass);
+		beginning_of_UpperCass = upper_type->u.class->members;
+		for (fieldTypePtr = beginning_of_UpperCass; fieldTypePtr != NULL; fieldTypePtr = fieldTypePtr->tail)
+		{
+			field_name = fieldTypePtr->head->name;
+			if (S_look(temp_env, field_name) == NULL)
+			{
+				fieldsTypesList = Ty_FieldList(fieldTypePtr->head, fieldsTypesList);
+			}
+		}
+	}
+	S_endScope(tenv);
+
+	S_enter(tenv, type_name, Ty_Class(fieldsTypesList, funcList, upper_type));
+
+
+	/********************************************/
+	/* [6] check for recursive type definitions */
+	/********************************************/
+	for (fieldTypePtr = fieldsTypesList; fieldTypePtr != NULL; fieldTypePtr = fieldTypePtr->tail)
+	{
+		if (fieldTypePtr->head->ty == Ty_DummyType())
+		{
+			fieldTypePtr->head->ty = S_look(tenv, type_name);
+		}
+	}
+
+	/******************************/
+	/* [7] SOMETHING HAPPENS HERE */
+	/******************************/
+	S_endScope(temp_env);
+	/******************************/
+	/* [8] SOMETHING HAPPENS HERE */
+	/******************************/
+}
+
 
 void SEM_transRecordTypeDec(S_table venv, S_table tenv, A_dec dec)
 {
@@ -352,6 +481,37 @@ void SEM_transRecordTypeDec(S_table venv, S_table tenv, A_dec dec)
 	/******************************/
 }
 
+void SEM_transClassDec(S_table venv, S_table tenv, A_dec dec)
+{
+	/************************************************************/
+	/* [0] make sure declaration is indeed a "type" declaration */
+	/************************************************************/
+	assert(dec->kind == A_classDec);
+
+	/************************************************/
+	/* [1] make sure type does not exist previously */
+	/************************************************/
+	if (S_look(tenv, dec->u.class_dec.name) != NULL)
+	{
+		EM_error(
+			dec->pos,
+			"class %s previously defined in this scope",
+			S_name(dec->u.class_dec.name));
+	}
+	if (dec->u.class_dec.upperClass != NULL && S_look(tenv, dec->u.class_dec.upperClass) == NULL)
+	{
+		EM_error(
+			dec->pos,
+			"extends class type %s not defined in this scope",
+			S_name(dec->u.class_dec.upperClass));
+	}
+
+	/********************************************************/
+	/* [2] record members and methos of class  */
+	/********************************************************/
+	SEM_tranRecordMemberAndFunction(venv, tenv, dec);
+}
+
 void SEM_transTypeDec(S_table venv, S_table tenv, A_dec dec)
 {
 	/************************************************************/
@@ -379,6 +539,9 @@ void SEM_transTypeDec(S_table venv, S_table tenv, A_dec dec)
 	case (A_recordTy) : SEM_transRecordTypeDec(venv, tenv, dec); return;
 	}
 }
+
+
+
 
 void SEM_transFuncDec(S_table venv, S_table tenv, A_dec dec)
 {
@@ -488,6 +651,7 @@ void SEM_transDecs(S_table venv, S_table tenv, A_decList decList)
 	case (A_varDec) : SEM_transVarDec(venv, tenv, decList->head); break;
 	case (A_typeDec) : SEM_transTypeDec(venv, tenv, decList->head); break;
 	case (A_functionDec) : SEM_transFuncDec(venv, tenv, decList->head); break;
+	case (A_classDec) : SEM_transClassDec(venv, tenv, decList->head); break;
 	}
 
 	/**************************/
@@ -1051,21 +1215,28 @@ Ty_ty SEM_transAllocateRecordExp(S_table venv, S_table tenv, A_exp exp)
 	/* [1] Make sure record type exists */
 	/************************************/
 	type = CheckIfRecordTypeExists(tenv, exp->u.recordInit.reocrdType, exp->pos);
-
+	if (type->kind == Ty_record)
+	{
+		fieldTypeIterator = type->u.record;
+	}
+	else if (type->kind == Ty_classType)
+	{
+		fieldTypeIterator = type->u.class->members;
+	}
 	/*************************************************************************************/
 	/* [2] Make sure number of record initializer list match the number of record fields */
 	/*************************************************************************************/
 	Check_Number_Of_Record_Initializer_List_Match_Number_Of_Record_Fields(
 		exp->u.recordInit.reocrdType,
 		exp->u.recordInit.initExpList,
-		type->u.record,
+		fieldTypeIterator,
 		exp->pos);
 
 	/*********************************************************************/
 	/* [3] Make sure each field initizlizer type match its expected type */
 	/*********************************************************************/
 	for (
-		fieldTypeIterator = type->u.record,
+		fieldTypeIterator,
 		fieldInitializerIterator = exp->u.recordInit.initExpList;
 		fieldTypeIterator &&
 		fieldInitializerIterator;

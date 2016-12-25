@@ -373,7 +373,7 @@ A_dec A_FunDec(A_pos pos, S_symbol name, A_fieldList params, S_symbol result, A_
 	return p;
 }
 
-A_dec A_ClassDec(A_pos pos, S_symbol name, S_symbol upperClass, A_fieldList members, A_funcList methods)
+A_dec A_ClassDec(A_pos pos, S_symbol name, S_symbol upperClass, A_dec body)
 {
 	A_dec p = (A_dec)checked_malloc(sizeof(*p));
 
@@ -386,8 +386,25 @@ A_dec A_ClassDec(A_pos pos, S_symbol name, S_symbol upperClass, A_fieldList memb
 
 	p->u.class_dec.name = name;
 	p->u.class_dec.upperClass = upperClass;
-	p->u.class_dec.members = members;
-	p->u.class_dec.methods = methods;
+	p->u.class_dec.members = body->u.class_body.members;
+	p->u.class_dec.methods = body->u.class_body.methods;
+
+	return p;
+}
+
+A_dec A_ClassBody(A_pos pos, A_fieldList members, A_funcList methods)
+{
+	A_dec p = (A_dec)checked_malloc(sizeof(*p));
+
+	p->PrintMyNodeSerialNumber = serial_node_number++;
+
+	sprintf(p->PrintTheKindOfTreeIAm, "CLASS\nBODY");
+
+	p->kind = A_classBody;
+	p->pos = pos;
+
+	p->u.class_body.members = members;
+	p->u.class_body.methods = methods;
 
 	return p;
 }

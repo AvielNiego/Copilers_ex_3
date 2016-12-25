@@ -213,12 +213,12 @@ CallExp:				ID LPAREN RPAREN										{$$.exp = A_CallExp(EM_tokPos,S_Symbol($1.
 						| ID ARROW ID LPAREN RPAREN								{$$.exp = A_CallExp(EM_tokPos,S_Symbol($3.sval),NULL);}
 						| ID ARROW ID LPAREN ListExpComma RPAREN				{$$.exp = A_CallExp(EM_tokPos,S_Symbol($1.sval),$3.expList);}
 
-ClassDeclaration:		CLASS ID EQ LBRACE ClassBody RBRACE                     {$$.dec = A_ClassDec(EM_tokPos,S_Symbol($2.sval),NULL,$5.fieldList,$5.funcList);}
-						| CLASS ID EXTENDS ID EQ LBRACE ClassBody RBRACE		{$$.dec = A_ClassDec(EM_tokPos,S_Symbol($2.sval),S_Symbol($4.sval),$5.fieldList,$5.funcList);}
+ClassDeclaration:		CLASS ID EQ LBRACE ClassBody RBRACE                     {$$.dec = A_ClassDec(EM_tokPos,S_Symbol($2.sval),NULL,$5.dec);}
+						| CLASS ID EXTENDS ID EQ LBRACE ClassBody RBRACE		{$$.dec = A_ClassDec(EM_tokPos,S_Symbol($2.sval),S_Symbol($4.sval),$7.dec);}
 
-ClassBody:				MembersDeclarationList MethodsDeclarationList			{$$.fieldList = $1.fieldList; $$.funcList = $2.funcList;}
-						| MembersDeclarationList								{$$.fieldList = $1.fieldList;}
-						| MethodsDeclarationList								{$$.funcList = $1.funcList;}
+ClassBody:				MembersDeclarationList MethodsDeclarationList			{$$.dec = A_ClassBody(EM_tokPos,$1.fieldList,$2.funcList);}
+						| MembersDeclarationList								{$$.dec = A_ClassBody(EM_tokPos,$1.fieldList,NULL);}
+						| MethodsDeclarationList								{$$.dec = A_ClassBody(EM_tokPos,NULL,$1.funcList);}
 
 MembersDeclarationList: ID COLON ID SEMICOLON MembersDeclarationList			{$$.fieldList = A_FieldList(A_Field(EM_tokPos,S_Symbol($1.sval),S_Symbol($3.sval)),$5.fieldList);}
 						| ID COLON ID SEMICOLON							     	{$$.fieldList = A_FieldList(A_Field(EM_tokPos,S_Symbol($1.sval),S_Symbol($3.sval)),NULL);}
