@@ -42,7 +42,7 @@ Ty_ty Ty_Record(Ty_fieldList fields)
 	return p;
 }
 
-Ty_ty Ty_Class(Ty_fieldList fields, Ty_func functions, Ty_class upperClass)
+Ty_ty Ty_Class(Ty_fieldList fields, Ty_funcList functions, Ty_class upperClass)
 {
 	Ty_ty p = (Ty_ty)checked_malloc(sizeof(*p));
 	p->kind = Ty_classType;
@@ -80,7 +80,8 @@ Ty_field Ty_Field(S_symbol name, Ty_ty ty)
 	
 	return p;
 }
-Ty_func Ty_Func(S_symbol name, E_enventry fun)
+
+Ty_func Ty_Func(S_symbol name, struct E_enventry_ *fun)
 {
 	Ty_func p = (Ty_func)checked_malloc(sizeof(*p));
 	p->name = name;
@@ -99,9 +100,9 @@ Ty_fieldList Ty_FieldList(Ty_field head, Ty_fieldList tail)
 	return p;
 }
 
-Ty_fieldList Ty_FuncList(Ty_field head, Ty_fieldList tail)
+Ty_funcList Ty_FuncList(Ty_func head, Ty_funcList tail)
 {
-	Ty_fieldList p = (Ty_fieldList)checked_malloc(sizeof(*p));
+	Ty_funcList p = (Ty_funcList)checked_malloc(sizeof(*p));
 	p->head = head;
 	p->tail = tail;
 

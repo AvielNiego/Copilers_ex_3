@@ -24,9 +24,20 @@
 /* FUNCTIONS DECLARATIONS */
 /**************************/
 Ty_ty SEM_transExp(S_table venv, S_table tenv, A_exp exp);
+void SEM_transFuncDec(S_table venv, S_table tenv, A_dec dec);
 Ty_funcList SEM_PrepareFunctionTypeList(S_table venv, S_table tenv, A_dec dec)
 {
-	return NULL;
+	Ty_funcList func_list = NULL;
+	A_funcList func_iterator;
+	E_enventry fun_entry;
+
+	for (func_iterator = dec->u.class_dec.methods; func_iterator != NULL; func_iterator = func_iterator->tail)
+	{
+		SEM_transFuncDec(venv, tenv, func_iterator->head);
+		fun_entry = S_look(venv, func_iterator->head->u.func_dec.name);
+		func_list = Ty_FuncList(Ty_Func(func_iterator->head->u.func_dec.name, fun_entry), func_list);
+	}
+	return func_list;
 }
 
 void SEM_transVarDecInit(S_table venv, S_table tenv, A_dec dec)
@@ -270,6 +281,7 @@ void SEM_tranRecordMemberAndFunction(S_table venv, S_table tenv, A_dec dec)
 	S_symbol type_name = dec->u.class_dec.name;
 	A_fieldList beginning_of_record = dec->u.class_dec.members;
 	Ty_fieldList beginning_of_UpperCass = dec->u.class_dec.members;
+	Ty_fieldList beginning_of_field_list;
 	A_fieldList new_fieldList = dec->u.class_dec.members;
 	/*************************************************************************************/
 	/* [0] for recursive definitions, we enter the record name to declare its existance  */
@@ -333,14 +345,19 @@ void SEM_tranRecordMemberAndFunction(S_table venv, S_table tenv, A_dec dec)
 	/* [4] Prepare field type list */
 	/*******************************/
 	fieldsTypesList = PrepareFieldsTypeList(tenv, new_fieldList);
+	S_endScope(temp_env);
+	S_beginScope(temp_env);
+
+	beginning_of_field_list = fieldsTypesList;
+	for (fieldTypePtr = beginning_of_field_list; fieldTypePtr != NULL; fieldTypePtr = fieldTypePtr->tail)
+	{
+		S_enter(temp_env, fieldTypePtr->head->name, fieldTypePtr->head->ty);
+	}
+
 
 	/******************************/
 	/* [5] SOMETHING HAPPENS HERE */
 	/******************************/	
-	if (dec->u.class_dec.methods != NULL)
-	{
-		funcList = SEM_PrepareFunctionTypeList(venv, tenv, dec);
-	}
 	if (dec->u.class_dec.upperClass != NULL)
 	{
 		upper_type = S_look(tenv, dec->u.class_dec.upperClass);
@@ -351,8 +368,18 @@ void SEM_tranRecordMemberAndFunction(S_table venv, S_table tenv, A_dec dec)
 			if (S_look(temp_env, field_name) == NULL)
 			{
 				fieldsTypesList = Ty_FieldList(fieldTypePtr->head, fieldsTypesList);
+				S_enter(temp_env, fieldTypePtr->head->name, fieldTypePtr->head->ty);
 			}
 		}
+	}
+
+
+	S_enter(temp_env, S_Symbol("PrintInt"), E_FunEntry(Ty_TyList(Ty_Int(), NULL), NULL, NULL));
+	S_enter(temp_env, S_Symbol("PrintFloat"), E_FunEntry(Ty_TyList(Ty_Float(), NULL), NULL, NULL));
+	S_enter(temp_env, S_Symbol("PrintString"), E_FunEntry(Ty_TyList(Ty_String(), NULL), NULL, NULL));
+	if (dec->u.class_dec.methods != NULL)
+	{
+		funcList = SEM_PrepareFunctionTypeList(temp_env, tenv, dec);
 	}
 	S_endScope(tenv);
 

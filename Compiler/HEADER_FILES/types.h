@@ -56,7 +56,7 @@ struct Ty_tyList_ {Ty_ty head; Ty_tyList tail;};
 struct Ty_field_ {S_symbol name; Ty_ty ty;};
 struct Ty_func_ { S_symbol name; struct E_enventry_* funEntry; };
 struct Ty_fieldList_ {Ty_field head; Ty_fieldList tail;};
-struct Ty_funcList_ { Ty_func head; Ty_fieldList tail; };
+struct Ty_funcList_ { Ty_func head; Ty_funcList tail; };
 struct Ty_class_ { Ty_fieldList members; Ty_funcList funtions; };
 
 
@@ -67,16 +67,17 @@ Ty_ty Ty_Float(void);
 Ty_ty Ty_String(void);
 Ty_ty Ty_DummyType(void);
 
-Ty_ty Ty_Class(Ty_fieldList fields, Ty_func functions,Ty_class upperClass);
+Ty_ty Ty_Class(Ty_fieldList fields, Ty_funcList functions,Ty_class upperClass);
 Ty_ty Ty_Record(Ty_fieldList fields);
 Ty_ty Ty_Array(Ty_ty ty);
 Ty_ty Ty_Name(S_symbol sym, Ty_ty ty);
+Ty_func Ty_Func(S_symbol name, struct E_enventry_ *fun);
 
 Ty_tyList Ty_TyList(Ty_ty head, Ty_tyList tail);
 Ty_field Ty_Field(S_symbol name, Ty_ty ty);
-Ty_func Ty_Func(S_symbol name, Ty_ty ty);
 
 Ty_fieldList Ty_FieldList(Ty_field head, Ty_fieldList tail);
+Ty_funcList Ty_FuncList(Ty_func head, Ty_funcList tail);
 
 void Ty_print(Ty_ty t);
 void TyList_print(Ty_tyList list);
