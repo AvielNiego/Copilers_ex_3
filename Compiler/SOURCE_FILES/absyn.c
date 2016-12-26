@@ -71,6 +71,21 @@ A_var A_SubscriptVar(A_pos pos, A_var var, A_exp exp)
 }
 
 
+A_var A_CallVar(A_pos pos, A_var var, A_exp exp)
+{
+	A_var p = (A_var)checked_malloc(sizeof(*p));
+
+	p->PrintMyNodeSerialNumber = serial_node_number++;
+
+	sprintf(p->PrintTheKindOfTreeIAm, "Subscript\nVar\n...[...]");
+
+	p->kind = A_callExpVar;
+	p->pos = pos;
+	p->u.callExp.var = var;
+	p->u.callExp.exp = exp;
+	return p;
+}
+
 A_exp A_VarExp(A_pos pos, A_var var)
 {
 	A_exp p = (A_exp) checked_malloc(sizeof(*p));

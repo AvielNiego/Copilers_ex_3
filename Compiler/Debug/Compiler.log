@@ -1,13 +1,4 @@
-﻿  semant.c
-d:\github\copilers_ex_3\compiler\source_files\semant.c(359): warning C4133: 'function': incompatible types - from 'Ty_funcList' to 'Ty_func'
-d:\github\copilers_ex_3\compiler\source_files\semant.c(359): warning C4133: 'function': incompatible types - from 'Ty_ty' to 'Ty_class'
-d:\github\copilers_ex_3\compiler\source_files\semant.c(272): warning C4133: 'initializing': incompatible types - from 'A_fieldList' to 'Ty_fieldList'
-d:\github\copilers_ex_3\compiler\source_files\semant.c(261): warning C4101: 'type': unreferenced local variable
-d:\github\copilers_ex_3\compiler\source_files\semant.c(260): warning C4101: 'i': unreferenced local variable
-d:\github\copilers_ex_3\compiler\source_files\semant.c(385): warning C4101: 'type': unreferenced local variable
-d:\github\copilers_ex_3\compiler\source_files\semant.c(874): warning C4101: 'varName': unreferenced local variable
-d:\github\copilers_ex_3\compiler\source_files\semant.c(917): warning C4715: 'SEM_transVarExp': not all control paths return a value
-d:\github\copilers_ex_3\compiler\source_files\semant.c(1285): warning C4715: 'SEM_transExp': not all control paths return a value
+﻿  main.c
 tiger.tab.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
   Compiler.vcxproj -> D:\GitHub\Copilers_ex_3\Compiler\Debug\Compiler.exe
   Compiler.vcxproj -> D:\GitHub\Copilers_ex_3\Compiler\Debug\Compiler.pdb (Full PDB)

@@ -48,7 +48,7 @@ typedef enum {
 	A_orOp
 } A_oper;
 
-typedef enum {A_simpleVar, A_fieldVar, A_subscriptVar} VarType;
+typedef enum {A_simpleVar, A_fieldVar, A_subscriptVar, A_callExpVar} VarType;
 
 struct A_var_
 {
@@ -66,6 +66,7 @@ struct A_var_
 		
 		struct {A_var var; S_symbol field_name;} field;
 		struct {A_var var; A_exp exp;} subscript;
+		struct { A_var var; A_exp exp; } callExp;
 	} u;
 };
 

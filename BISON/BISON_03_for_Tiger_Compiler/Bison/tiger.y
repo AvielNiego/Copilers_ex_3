@@ -200,6 +200,7 @@ declarations:			declaration declarations								{$$.decList = A_DecList($1.dec,$
 LetExp:					LET declarations IN exp END								{$$.exp = A_LetExp(EM_tokPos,$2.decList,$4.exp);}
 
 variable:				ID														{$$.var = A_SimpleVar(EM_tokPos,S_Symbol($1.sval));}
+						| ID ARROW CallExp										{$$.var = A_CallVar(EM_tokPos,A_SimpleVar(EM_tokPos,S_Symbol($1.sval)),$3.exp);}
 						| variable ARROW ID										{$$.var = A_FieldVar(EM_tokPos,$1.var,S_Symbol($3.sval));}
 						| ID ARROW ID											{$$.var = A_FieldVar(EM_tokPos,A_SimpleVar(EM_tokPos,S_Symbol($1.sval)),S_Symbol($3.sval));}
 						| variable LBRACK exp RBRACK							{$$.var = A_SubscriptVar(EM_tokPos,$1.var,$3.exp);}
@@ -210,8 +211,6 @@ AssignExp:				variable ASSIGN exp										{$$.exp = A_AssignExp(EM_tokPos,$1.va
 
 CallExp:				ID LPAREN RPAREN										{$$.exp = A_CallExp(EM_tokPos,S_Symbol($1.sval),NULL);}
 						| ID LPAREN ListExpComma RPAREN							{$$.exp = A_CallExp(EM_tokPos,S_Symbol($1.sval),$3.expList);}
-						| ID ARROW ID LPAREN RPAREN								{$$.exp = A_CallExp(EM_tokPos,S_Symbol($3.sval),NULL);}
-						| ID ARROW ID LPAREN ListExpComma RPAREN				{$$.exp = A_CallExp(EM_tokPos,S_Symbol($1.sval),$3.expList);}
 
 ClassDeclaration:		CLASS ID EQ LBRACE ClassBody RBRACE                     {$$.dec = A_ClassDec(EM_tokPos,S_Symbol($2.sval),NULL,$5.dec);}
 						| CLASS ID EXTENDS ID EQ LBRACE ClassBody RBRACE		{$$.dec = A_ClassDec(EM_tokPos,S_Symbol($2.sval),S_Symbol($4.sval),$7.dec);}

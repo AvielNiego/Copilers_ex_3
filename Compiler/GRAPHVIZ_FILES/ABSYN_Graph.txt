@@ -1,8 +1,8 @@
 digraph
 {
 graph [ordering = "out"]
-v93 [label = "LET"];
-v93 -> v64;
+v102 [label = "LET"];
+v102 -> v64;
 v64 [label = "Dec
 List"];
 v64 -> v15;
@@ -47,12 +47,12 @@ Declaration
 v58 -> v57;
 v57 [label = "Allocate
 Record"];
-v93 -> v92;
-v92 [label = "SEQ"];
-v92 -> v91;
-v91 [label = "Exp
+v102 -> v101;
+v101 [label = "SEQ"];
+v101 -> v100;
+v100 [label = "Exp
 List"];
-v91 -> v68;
+v100 -> v68;
 v68 [label = "ASSIGN"];
 v68 -> v66;
 v66 [label = "Field
@@ -63,51 +63,51 @@ v65 [label = "Simple
 Var(Avi)"];
 v68 -> v67;
 v67 [label = "INT(99)"];
-v91 -> v90;
-v90 [label = "Exp
+v100 -> v99;
+v99 [label = "Exp
 List"];
-v90 -> v71;
-v71 [label = "CALL
+v99 -> v74;
+v74 [label = "CALL
 (PrintInt)"];
-v90 -> v89;
-v89 [label = "Exp
+v99 -> v98;
+v98 [label = "Exp
 List"];
-v89 -> v75;
-v75 [label = "ASSIGN"];
-v75 -> v73;
-v73 [label = "Field
+v98 -> v78;
+v78 [label = "ASSIGN"];
+v78 -> v76;
+v76 [label = "Field
 Var
 ...->age"];
-v73 -> v72;
-v72 [label = "Simple
+v76 -> v75;
+v75 [label = "Simple
 Var(Isaac)"];
-v75 -> v74;
-v74 [label = "INT(74)"];
-v89 -> v88;
-v88 [label = "Exp
+v78 -> v77;
+v77 [label = "INT(74)"];
+v98 -> v97;
+v97 [label = "Exp
 List"];
-v88 -> v78;
-v78 [label = "CALL
+v97 -> v84;
+v84 [label = "CALL
 (PrintInt)"];
-v88 -> v87;
-v87 [label = "Exp
+v97 -> v96;
+v96 [label = "Exp
 List"];
-v87 -> v82;
-v82 [label = "ASSIGN"];
-v82 -> v80;
-v80 [label = "Field
+v96 -> v88;
+v88 [label = "ASSIGN"];
+v88 -> v86;
+v86 [label = "Field
 Var
 ...->age"];
-v80 -> v79;
-v79 [label = "Simple
-Var(Jacob)"];
-v82 -> v81;
-v81 [label = "INT(49)"];
-v87 -> v86;
-v86 [label = "Exp
-List"];
 v86 -> v85;
-v85 [label = "CALL
+v85 [label = "Simple
+Var(Jacob)"];
+v88 -> v87;
+v87 [label = "INT(49)"];
+v96 -> v95;
+v95 [label = "Exp
+List"];
+v95 -> v94;
+v94 [label = "CALL
 (PrintInt)"];
 
 }

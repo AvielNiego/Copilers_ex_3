@@ -381,7 +381,6 @@ void SEM_tranRecordMemberAndFunction(S_table venv, S_table tenv, A_dec dec)
 	{
 		funcList = SEM_PrepareFunctionTypeList(temp_env, tenv, dec);
 	}
-	S_endScope(tenv);
 
 	S_enter(tenv, type_name, Ty_Class(fieldsTypesList, funcList, upper_type));
 
@@ -899,6 +898,7 @@ Ty_ty SEM_transVarExp(S_table venv, S_table tenv, A_var var)
 	Ty_fieldList fieldList;
 	Ty_fieldList fieldListPtr;
 	S_symbol varName;
+	Ty_funcList funcList;
 	switch (var->kind) {
 	case (A_simpleVar) :
 
@@ -932,8 +932,39 @@ Ty_ty SEM_transVarExp(S_table venv, S_table tenv, A_var var)
 				}
 			}
 		}
-
-
+		else if (type != NULL && type->kind == Ty_classType)
+		{
+			fieldList = type->u.class->members;
+			for (fieldListPtr = fieldList; fieldListPtr != NULL; fieldListPtr = fieldListPtr->tail)
+			{
+				if (fieldListPtr->head->name == var->u.field.field_name)
+				{
+					return (Ty_ty)fieldListPtr->head->ty;
+				}
+			}
+		}
+	case (A_callExpVar):
+	{
+		type = (Ty_ty)S_look(venv, var->u.callExp.var->u.simple);
+		if (type->kind != Ty_classType)
+		{
+			EM_error(
+				var->pos,
+				"variable %s is not class type\n",
+				S_name(var->u.callExp.var->u.simple));
+		}
+		else {
+			funcList = type->u.class->funtions;
+			for (funcList; funcList != NULL; funcList = funcList->tail)
+			{
+				if (funcList->head->name == var->u.callExp.exp->u.call.func)
+				{
+					return funcList->head->funEntry->u.fun.result;
+				}
+			}
+		}
+		return type;
+	}
 	case (A_subscriptVar) :
 		type = SEM_transVarExp(venv, tenv, var->u.subscript.var);
 		if (type != NULL && type->kind == Ty_array)

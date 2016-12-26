@@ -59,7 +59,7 @@ int main(int argc,char **argv)
 	/***********************************/
 	/* [3] Intermediate Representation */
 	/***********************************/
-	IR_tree = AST_To_IR(AST);
+	//IR_tree = AST_To_IR(AST);
 	IR_PrintTree(IR_tree,"GRAPHVIZ_FILES/IR_Graph.txt");
 
 	/***********************/
