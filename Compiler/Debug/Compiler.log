@@ -1,4 +1,8 @@
-﻿  main.c
+﻿  IR.c
+d:\github\copilers_ex_3\compiler\source_files\ir.c(128): warning C4013: 'SEM_transClassDec' undefined; assuming extern returning int
+d:\github\copilers_ex_3\compiler\source_files\ir.c(448): warning C4715: 'IR_transOpExp': not all control paths return a value
+d:\github\copilers_ex_3\compiler\source_files\ir.c(633): warning C4715: 'IR_transVarExp': not all control paths return a value
+d:\github\copilers_ex_3\compiler\source_files\ir.c(874): warning C4715: 'IR_transExp': not all control paths return a value
 tiger.tab.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
   Compiler.vcxproj -> D:\GitHub\Copilers_ex_3\Compiler\Debug\Compiler.exe
   Compiler.vcxproj -> D:\GitHub\Copilers_ex_3\Compiler\Debug\Compiler.pdb (Full PDB)

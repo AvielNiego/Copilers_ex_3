@@ -122,8 +122,10 @@ T_exp IR_transTypeDec(S_table venv,S_table tenv, A_dec dec)
 	/* [0] The only reason tenv needs to be maintained */
 	/*     is to know the offsets of feilds in records */
 	/***************************************************/
-	SEM_transTypeDec(venv,tenv,dec);
-
+	if (dec->kind == A_typeDec)
+		SEM_transTypeDec(venv, tenv, dec);
+	else
+		SEM_transClassDec(venv, tenv, dec);
 	/***************************************************/
 	/* [1] no translated IR code for type declarations */
 	/***************************************************/
@@ -306,6 +308,7 @@ T_exp IR_transDecs(S_table venv,S_table tenv, A_decList decList, F_frame frame)
 	case (A_varDec):      t=IR_transVarDec( venv,tenv,decList->head,frame); break;
 	case (A_typeDec):     t=IR_transTypeDec(venv,tenv,decList->head);       break;
 	case (A_functionDec): t=IR_transFuncDec(venv,tenv,decList->head);       break;
+	case(A_classDec):      t = IR_transTypeDec(venv, tenv, decList->head);       break;
 	}
 
 	/**************************/
@@ -549,7 +552,11 @@ struct expty IR_transVarExp(S_table venv,S_table tenv,A_var var,F_frame frame)
 		/*********************************/
 		/* [1b] find field in field list */
 		/*********************************/
-		for (fieldList=type->u.record;fieldList;fieldList=fieldList->tail,fieldOffset++)
+		if (type->kind == Ty_classType)
+			fieldList = type->u.class->members;
+		else
+			fieldList = type->u.record;
+		for (fieldList;fieldList != NULL;fieldList=fieldList->tail,fieldOffset++)
 		{
 			if (var->u.field.field_name == fieldList->head->name)
 			{

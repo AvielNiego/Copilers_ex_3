@@ -6,6 +6,66 @@ Label_0_main:
 
 	addi $fp,$sp,40
 
+	li $t0,-4
+
+	add $t1,$fp,$t0
+
+	sw $v0,0($t1)
+
+	li $t0,-8
+
+	add $t1,$fp,$t0
+
+	sw $v0,0($t1)
+
+	li $t0,-12
+
+	add $t1,$fp,$t0
+
+	sw $v0,0($t1)
+
+	li $t0,-4
+
+	add $t1,$fp,$t0
+
+	lw $t2,0($t1)
+
+	li $t0,0
+
+	add $t1,$t2,$t0
+
+	li $t0,99
+
+	sw $t0,0($t1)
+
+	li $t0,-8
+
+	add $t1,$fp,$t0
+
+	lw $t2,0($t1)
+
+	li $t0,4
+
+	add $t1,$t2,$t0
+
+	li $t0,74
+
+	sw $t0,0($t1)
+
+	li $t0,-12
+
+	add $t1,$fp,$t0
+
+	lw $t2,0($t1)
+
+	li $t0,0
+
+	add $t1,$t2,$t0
+
+	li $t0,49
+
+	sw $t0,0($t1)
+
 	li $v0,10
 
 	syscall

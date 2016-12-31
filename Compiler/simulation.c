@@ -8,6 +8,56 @@ int *Temp_0;
 
 int *Temp_1;
 
+int *Temp_2;
+
+int *Temp_3;
+
+int *Temp_4;
+
+int *Temp_5;
+
+int *Temp_6;
+
+int *Temp_7;
+
+int *Temp_8;
+
+int *Temp_9;
+
+int *Temp_10;
+
+int *Temp_11;
+
+int *Temp_12;
+
+int *Temp_13;
+
+int *Temp_14;
+
+int *Temp_15;
+
+int *Temp_16;
+
+int *Temp_17;
+
+int *Temp_18;
+
+int *Temp_19;
+
+int *Temp_20;
+
+int *Temp_21;
+
+int *Temp_22;
+
+int *Temp_23;
+
+int *Temp_24;
+
+int *Temp_25;
+
+int *Temp_26;
+
 int *sp;
 
 int *fp;
@@ -69,6 +119,66 @@ void main()
 Label_0_main:
 
 	fp = (int *) ((int) sp + 40);
+
+	Temp_3 = (int *) -4;
+
+	Temp_2 =(int *) (((int) fp) + ((int) Temp_3));
+
+	*(Temp_2) = (int) (v0+(0));
+
+	Temp_6 = (int *) -8;
+
+	Temp_5 =(int *) (((int) fp) + ((int) Temp_6));
+
+	*(Temp_5) = (int) (v0+(0));
+
+	Temp_8 = (int *) -12;
+
+	Temp_7 =(int *) (((int) fp) + ((int) Temp_8));
+
+	*(Temp_7) = (int) (v0+(0));
+
+	Temp_12 = (int *) -4;
+
+	Temp_11 =(int *) (((int) fp) + ((int) Temp_12));
+
+	Temp_10 = (int *) *(Temp_11 + 0);
+
+	Temp_13 = (int *) 0;
+
+	Temp_9 =(int *) (((int) Temp_10) + ((int) Temp_13));
+
+	Temp_14 = (int *) 99;
+
+	*(Temp_9) = (int) (Temp_14+(0));
+
+	Temp_18 = (int *) -8;
+
+	Temp_17 =(int *) (((int) fp) + ((int) Temp_18));
+
+	Temp_16 = (int *) *(Temp_17 + 0);
+
+	Temp_19 = (int *) 4;
+
+	Temp_15 =(int *) (((int) Temp_16) + ((int) Temp_19));
+
+	Temp_20 = (int *) 74;
+
+	*(Temp_15) = (int) (Temp_20+(0));
+
+	Temp_24 = (int *) -12;
+
+	Temp_23 =(int *) (((int) fp) + ((int) Temp_24));
+
+	Temp_22 = (int *) *(Temp_23 + 0);
+
+	Temp_25 = (int *) 0;
+
+	Temp_21 =(int *) (((int) Temp_22) + ((int) Temp_25));
+
+	Temp_26 = (int *) 49;
+
+	*(Temp_21) = (int) (Temp_26+(0));
 
 	exit(0);
 
